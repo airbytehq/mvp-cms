@@ -27,9 +27,10 @@ This means we need a data pipeline from:
 Endpoints want to offer:
 
 - GET `/connectors`
-  - [/connectors](/connectors) - the smallest payload of all connectors, 
+  - [/connectors](/connectors) - the smallest payload of connectors, minus internal connectors
     - listing `['name', 'dateAdded', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
-  - [/connectors?full](/connectors?full) - just dumping the full `results.json
+  - [/connectors?internal](/connectors?internal) - small payload of all connectors including internal connectors
+  - [/connectors?full](/connectors?full) - just dumping the full `results.json`
 - GET `/connector/{connector_name}`
   - return full info for a single connector
   - 404 if unrecognized name

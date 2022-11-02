@@ -3,10 +3,10 @@
 
 	import SvelteTable from 'svelte-table';
 	import TableCellName from './TableCellName.svelte';
-	import {showLogos} from './shared.js';
-	function toggle() {
-		$showLogos = !$showLogos
-	} 
+	import {showLogos, showInternalConnectors} from './shared.js';
+	const toggleLogos = () => $showLogos = !$showLogos
+	const toggleInternal = () => $showInternalConnectors = !$showInternalConnectors
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 	const rows = data.connectors;
@@ -70,9 +70,10 @@
 This is BOTH a UI for visual exploration, AND a Restful API with these endpoints:
 
 - GET `/connectors`
-  - [/connectors](/connectors) - the smallest payload of all connectors, 
+  - [/connectors](/connectors) - the smallest payload of connectors, minus internal connectors
     - listing `['name', 'dateAdded', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
-  - [/connectors?full](/connectors?full) - just dumping the full `results.json
+  - [/connectors?internal](/connectors?internal) - small payload of all connectors including internal connectors
+  - [/connectors?full](/connectors?full) - just dumping the full `results.json`
 - GET `/connector/{connector_name}`
   - return full info for a single connector
   - 404 if unrecognized name
@@ -96,12 +97,18 @@ https://github.com/airbytehq/mvp-cms
 
 <!-- nice tailwind flex div that vertically centers -->
 <div class="flex items-center gap-4">
-<button type="button" on:click={toggle} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showLogos} class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
-  <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
-  <span aria-hidden="true" class:translate-x-5={$showLogos} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
-</button>
-<span>Display logos (may cause heavy image load)</span>
+	<button type="button" on:click={toggleLogos} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showLogos} class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
+		<!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+		<span aria-hidden="true" class:translate-x-5={$showLogos} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+	</button>
+	<span>Display logos (may cause heavy image load)</span>
 </div>
+<!-- <div class="flex items-center gap-4">
+	<button type="button" on:click={toggleInternal} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showInternalConnectors} class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
+		<span aria-hidden="true" class:translate-x-5={$showInternalConnectors} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+	</button>
+	<span>Show internal connectors</span>
+</div> -->
 
 <!-- <pre>
 {JSON.stringify(data, null, 2)}
