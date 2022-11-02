@@ -28,7 +28,13 @@ export function GET({ url }) {
       }
       res2.push(temp)
     }
-    return json(res2);
+    return json(res2, {
+      headers: {
+        // turn off cors
+        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      }
+    });
   }
 
 }
