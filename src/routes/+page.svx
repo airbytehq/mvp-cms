@@ -14,7 +14,9 @@
 			title: 'name',
 			value: (v) => v.name,
 			sortable: true,
-			renderComponent: Test
+			renderComponent: Test,
+			filterOptions: ['source', 'destination'],
+			filterValue: v => v.name.split('-')[0]
 		},
 		{
 			key: 'date',
@@ -44,20 +46,39 @@
 			key: 'releaseStage',
 			title: 'releaseStage',
 			value: (v) => v.releaseStage,
-			sortable: true
+			sortable: true,
+			filterOptions: ['alpha', 'beta', 'generally_available', 'undefined'],
+			filterValue: v => v.releaseStage
 		},
 		{
 			key: 'connectorType',
 			title: 'connectorType',
 			value: (v) => v.connectorType,
-			sortable: true
+			sortable: true,
+			filterOptions: ['source', 'destination'],
+			filterValue: v => v.connectorType.split('-')[0]
 		}
 	];
 </script>
 
-# Welcome to the MVP of the Connector Metadata Service Source is at
+# Welcome to the MVP of the Connector Metadata Service!
+
+Source of this service is at
 https://github.com/airbytehq/mvp-cms
 
+## Docs
+
+<details>
+	<summary>
+		Expand to see README
+	</summary>
+
+
+	<Readme />
+
+</details>
+
+## All known connectors
 <!-- <pre>
 {JSON.stringify(data, null, 2)}
 </pre> -->
@@ -75,7 +96,7 @@ https://github.com/airbytehq/mvp-cms
 >
 	<svelte:fragment slot="expanded" let:row>
 		{#if row.iconUrl}
-			<img class="h-16 w-16" alt="logo" src={row.iconUrl} />
+			<img class="h-16" alt="logo" src={row.iconUrl} />
 		{/if}
 		{#if row.description}
 			<p>Docs: <a href={row.documentationUrl}>{row.documentationUrl}</a></p>
@@ -85,7 +106,3 @@ https://github.com/airbytehq/mvp-cms
 		{/if}
 	</svelte:fragment>
 </SvelteTable>
-
-## Docs
-
-<Readme />
