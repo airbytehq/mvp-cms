@@ -19,7 +19,7 @@ export function GET({ url }) {
   } else {
     /** @type {Array<any>} */
     const res2 = []
-    const keysToPreserve = ['name', 'date', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType'];
+    const keysToPreserve = ['name', 'dateAdded', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType'];
     for (const obj of res) {
       /** @type {Record<string, any>} */
       let temp = {};

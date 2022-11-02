@@ -28,7 +28,7 @@ Endpoints want to offer:
 
 - GET `/connectors`
   - [/connectors](/connectors) - the smallest payload of all connectors, 
-    - listing `['name', 'date', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
+    - listing `['name', 'dateAdded', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
   - [/connectors?full](/connectors?full) - just dumping the full `results.json
 - GET `/connector/{connector_name}`
   - return full info for a single connector

@@ -2,7 +2,11 @@
 	import Readme from '../../README.md'
 
 	import SvelteTable from 'svelte-table';
-	import Test from './Test.svelte';
+	import TableCellName from './TableCellName.svelte';
+	import {showLogos} from './shared.js';
+	function toggle() {
+		$showLogos = !$showLogos
+	} 
 	/** @type {import('./$types').PageData} */
 	export let data;
 	const rows = data.connectors;
@@ -14,22 +18,22 @@
 			title: 'name',
 			value: (v) => v.name,
 			sortable: true,
-			renderComponent: Test,
+			renderComponent: TableCellName,
 			filterOptions: ['source', 'destination'],
 			filterValue: v => v.name.split('-')[0]
 		},
 		{
-			key: 'date',
-			title: 'date',
-			value: (v) => v.date,
+			key: 'dateAdded',
+			title: 'dateAdded',
+			value: (v) => v.dateAdded,
 			sortable: true
 		},
-		{
-			key: 'displayName',
-			title: 'displayName',
-			value: (v) => v.displayName,
-			sortable: true
-		},
+		// {
+		// 	key: 'displayName',
+		// 	title: 'displayName',
+		// 	value: (v) => v.displayName,
+		// 	sortable: true
+		// },
 		// {
 		//   key:'description',
 		//   title: 'description',
@@ -55,7 +59,7 @@
 			title: 'connectorType',
 			value: (v) => v.connectorType,
 			sortable: true,
-			filterOptions: ['source', 'destination'],
+			filterOptions: ['source', 'destination', 'internal', 'tutorial'],
 			filterValue: v => v.connectorType.split('-')[0]
 		}
 	];
@@ -79,6 +83,16 @@ https://github.com/airbytehq/mvp-cms
 </details>
 
 ## All known connectors
+
+<!-- nice tailwind flex div that vertically centers -->
+<div class="flex items-center gap-4">
+<button type="button" on:click={toggle} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showLogos} class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
+  <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+  <span aria-hidden="true" class:translate-x-5={$showLogos} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+<span>Display logos (may cause heavy image load)</span>
+</div>
+
 <!-- <pre>
 {JSON.stringify(data, null, 2)}
 </pre> -->

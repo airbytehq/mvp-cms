@@ -50,7 +50,7 @@
 		/* https://ishadeed.com/article/defensive-css */
 		max-width: 100%;
 		object-fit: cover;
-		background-color: grey;
+		/* background-color: grey; */
 	}
 }
 /* bg-yellow-200 dark:hover:bg-yellow-800 */
