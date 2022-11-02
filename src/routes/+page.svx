@@ -3,6 +3,7 @@
 
 	import SvelteTable from 'svelte-table';
 	import TableCellName from './TableCellName.svelte';
+	import DarkMode from './DarkMode.svelte';
 	import {showLogos, showInternalConnectors} from './shared.js';
 	const toggleLogos = () => $showLogos = !$showLogos
 	const toggleInternal = () => $showInternalConnectors = !$showInternalConnectors
@@ -54,16 +55,19 @@
 			filterOptions: ['alpha', 'beta', 'generally_available', 'undefined'],
 			filterValue: v => v.releaseStage
 		},
+		// ['lg','xl','xxl'].includes($bps) && 
 		{
 			key: 'connectorType',
 			title: 'connectorType',
 			value: (v) => v.connectorType,
 			sortable: true,
 			filterOptions: ['source', 'destination', 'internal', 'tutorial'],
-			filterValue: v => v.connectorType.split('-')[0]
+			filterValue: v => v.connectorType.split('-')[0],
 		}
-	];
+	]
 </script>
+
+<DarkMode />
 
 # Welcome to the MVP of the Connector Metadata Service!
 
@@ -97,9 +101,9 @@ https://github.com/airbytehq/mvp-cms
 
 <!-- nice tailwind flex div that vertically centers -->
 <div class="flex items-center gap-4">
-	<button type="button" on:click={toggleLogos} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showLogos} class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
+	<button type="button" on:click={toggleLogos} class:bg-indigo-600={$showLogos} class:bg-gray-200={!$showLogos} class="bg-gray-200 dark:bg-gray-800 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false">
 		<!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
-		<span aria-hidden="true" class:translate-x-5={$showLogos} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+		<span aria-hidden="true" class:translate-x-5={$showLogos} class:translate-x-0={!$showLogos} class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-800 shadow ring-0 transition duration-200 ease-in-out"></span>
 	</button>
 	<span>Display logos (may cause heavy image load)</span>
 </div>
@@ -116,7 +120,8 @@ https://github.com/airbytehq/mvp-cms
 
 <SvelteTable
   classNameTable="table"
-  classNameThead="table-header-group sticky top-0 bg-white"
+	classNameSelect="dark:text-black"
+  classNameThead="table-header-group sticky top-0 bg-white dark:bg-blue-900"
   classNameTbody="h-[200px] overflow-y-auto"
 	{columns}
 	{rows}

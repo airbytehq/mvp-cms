@@ -4,9 +4,20 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
+		<script nonce="swyx">
+			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+			if (
+				localStorage.theme === 'dark' ||
+				(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 		%sveltekit.head%
 	</head>
-	<body>
-		<div>%sveltekit.body%</div>
+	<body class="p-8 vsc-initialized bg-white text-white dark:bg-gray-900 dark:text-black" data-sveltekit-prefetch>
+		<div id="svelte">%sveltekit.body%</div>
 	</body>
 </html>
