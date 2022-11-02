@@ -20,6 +20,10 @@ This means we need a data pipeline from:
 
 1. 3 sources of truth (external)
 2. manually maintained extra info (maintained here)
+  - logos (@nico might have more carefully designed ones for us)
+  - connector classification (including "internal" and "tutorial" classifications)
+  - connector url and description
+  - future: about, headline, tagline (combination of [scraped and GPT3 generated](https://github.com/airbytehq/airbyte/issues/17893))
 3. combine 1 and 2 into a `results.json` and serve it from this app/site
 
 We have NOT implemented this pipeline yet - we are hoping to agree on the desired output with this MVP and get an owner for this before working backwards on the pipeline.
