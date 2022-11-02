@@ -22,6 +22,8 @@ This means we need a data pipeline from:
 2. manually maintained extra info (maintained here)
 3. combine 1 and 2 into a `results.json` and serve it from this app/site
 
+We have NOT implemented this pipeline yet - we are hoping to agree on the desired output with this MVP and get an owner for this before working backwards on the pipeline.
+
 ## Endpoints
 
 Endpoints want to offer:

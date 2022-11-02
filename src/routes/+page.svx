@@ -82,10 +82,10 @@ This is BOTH a UI for visual exploration, AND a Restful API with these endpoints
   - return full info for a single connector
   - 404 if unrecognized name
 
+## Docs
+
 Source of this service is at
 https://github.com/airbytehq/mvp-cms
-
-## Docs
 
 <details>
 	<summary>
