@@ -1,0 +1,15 @@
+{
+  "name": "source_files",
+  "version": "1.0.0",
+  "description": "until this Connector Metadata Service becomes the primary source of truth, these files are meant to be copied verbatim from the source.",
+  "main": "csvtojson.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}

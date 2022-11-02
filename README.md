@@ -1,38 +1,42 @@
-# create-svelte
+# Airbyte Connector Metadata Service
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+There are 3 sources of truth as far as connector metadata right now:
 
-## Creating a project
+1. actual connector source code in the github repo
+    - https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors
+    - extracted with `git2json.js` and pasted in `git2json.json`
+2. the manually maintained definitions files
+    - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/destination_definitions.yaml
+    - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/source_definitions.yaml
+3. for cloud connectors, the cloud catalog
+    - https://storage.googleapis.com/prod-airbyte-cloud-connector-metadata-service/cloud_catalog.json
 
-If you're seeing this, you've probably already done this step. Congrats!
+Our job is to unify them and serve them quickly from a simple RESTful API that is easy to edit, for consumption from docs, UI, and whatever else. 
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- For most people, this is a read-only endeavor which means we can make use of simple infrastructure.
+- For connector maintainers, we need a simple and fast way to update connector metadata for consumption despite not having one source of truth
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+This means we need a data pipeline from:
 
-## Developing
+1. 3 sources of truth (external)
+2. manually maintained extra info (maintained here)
+3. combine 1 and 2 into a `results.json` and serve it from this app/site
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Endpoints
 
-```bash
-npm run dev
+Endpoints want to offer:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+- GET `/connectors`
+  - [/connectors](/connectors) - the smallest payload of all connectors, 
+    - listing `['name', 'date', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
+  - [/connectors?full](/connectors?full) - just dumping the full `results.json
+- GET `/connector/{connector_name}`
+  - return full info for a single connector
+  - 404 if unrecognized name
 
-## Building
+## Future
 
-To create a production version of your app:
+in future we maybe want to offer:
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- search
+- update (for now we choose to just update by updating the results.json file, with possibly a google spreadsheet in the loop)

@@ -1,0 +1,91 @@
+<script>
+	import Readme from '../../README.md'
+
+	import SvelteTable from 'svelte-table';
+	import Test from './Test.svelte';
+	/** @type {import('./$types').PageData} */
+	export let data;
+	const rows = data.connectors;
+	// console.log({ rows });
+	// https://github.com/dasDaniel/svelte-table#sample-data-and-config
+	const columns = [
+		{
+			key: 'name',
+			title: 'name',
+			value: (v) => v.name,
+			sortable: true,
+			renderComponent: Test
+		},
+		{
+			key: 'date',
+			title: 'date',
+			value: (v) => v.date,
+			sortable: true
+		},
+		{
+			key: 'displayName',
+			title: 'displayName',
+			value: (v) => v.displayName,
+			sortable: true
+		},
+		// {
+		//   key:'description',
+		//   title: 'description',
+		//   value: v=> v.description,
+		//   sortable: true
+		// },
+		// {
+		//   key:'iconUrl',
+		//   title: 'iconUrl',
+		//   value: v=> v.iconUrl,
+		//   sortable: true
+		// },
+		{
+			key: 'releaseStage',
+			title: 'releaseStage',
+			value: (v) => v.releaseStage,
+			sortable: true
+		},
+		{
+			key: 'connectorType',
+			title: 'connectorType',
+			value: (v) => v.connectorType,
+			sortable: true
+		}
+	];
+</script>
+
+# Welcome to the MVP of the Connector Metadata Service Source is at
+https://github.com/airbytehq/mvp-cms
+
+<!-- <pre>
+{JSON.stringify(data, null, 2)}
+</pre> -->
+
+<SvelteTable
+  classNameTable="table"
+  classNameThead="table-header-group sticky top-0 bg-white"
+  classNameTbody="h-[200px] overflow-y-auto"
+	{columns}
+	{rows}
+	expanded={['description', 'documentationUrl', 'websiteUrl', 'iconUrl']}
+	showExpandIcon
+	expandSingle={true}
+	rowKey="name"
+>
+	<svelte:fragment slot="expanded" let:row>
+		{#if row.iconUrl}
+			<img class="h-16 w-16" alt="logo" src={row.iconUrl} />
+		{/if}
+		{#if row.description}
+			<p>Docs: <a href={row.documentationUrl}>{row.documentationUrl}</a></p>
+			<p>Website: <a href={row.websiteUrl}>{row.websiteUrl}</a></p>
+			<p>Date added: <a href={row.websiteUrl}>{row.websiteUrl}</a></p>
+			<p>{row.description}</p>
+		{/if}
+	</svelte:fragment>
+</SvelteTable>
+
+## Docs
+
+<Readme />
