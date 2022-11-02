@@ -30,7 +30,7 @@ Endpoints want to offer:
   - [/connectors](/connectors) - the smallest payload of connectors, minus internal connectors
     - listing `['name', 'dateAdded', 'displayName', 'description', 'websiteUrl', 'documentationUrl', 'iconUrl', 'releaseStage', 'connectorType']`
   - [/connectors?internal](/connectors?internal) - small payload of all connectors including internal connectors
-  - [/connectors?full](/connectors?full) - just dumping the full `results.json`
+  - [/connectors?full](/connectors?full) - just dumping the full `results.json`, which includes extra stuff like docker name, version, sourceDefinitionId, etc
 - GET `/connector/{connector_name}`
   - return full info for a single connector
   - 404 if unrecognized name
