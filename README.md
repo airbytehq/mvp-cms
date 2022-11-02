@@ -4,7 +4,7 @@ There are 3 sources of truth as far as connector metadata right now:
 
 1. actual connector source code in the github repo
     - https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors
-    - extracted with `git2json.js` and pasted in `git2json.json`
+    - extracted with [`git2json.js`](https://github.com/airbytehq/airbyte/blob/trygit/airbyte-integrations/connectors/git2json.js) which generates `git2json.json` which we paste over to this project
 2. the manually maintained definitions files
     - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/destination_definitions.yaml
     - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/source_definitions.yaml
