@@ -8,7 +8,7 @@ There are 3 sources of truth as far as connector metadata right now:
 2. the manually maintained definitions files
     - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/destination_definitions.yaml
     - https://github.com/airbytehq/airbyte/blob/master/airbyte-config/init/src/main/resources/seed/source_definitions.yaml
-3. for cloud connectors, the cloud catalog
+3. for cloud connectors, the cloud catalog (not yet incorporated)
     - https://storage.googleapis.com/prod-airbyte-cloud-connector-metadata-service/cloud_catalog.json
 
 Our job is to unify them and serve them quickly from a simple RESTful API that is easy to edit, for consumption from docs, UI, and whatever else. 
